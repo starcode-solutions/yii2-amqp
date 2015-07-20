@@ -1,0 +1,20 @@
+{
+    "name": "memclutter/yii2-amqp",
+    "description": "AMQP protocol extension for Yii2",
+    "type": "yii2-extension",
+    "require": {
+        "yiisoft/yii2": "*",
+        "videlalvaro/php-amqplib": "2.5.*"
+    },
+    "authors": [
+        {
+            "name": "Memory Clutter",
+            "email": "memclutter@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "memclutter\\amqp\\": ""
+        }
+    }
+}
