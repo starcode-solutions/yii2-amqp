@@ -28,6 +28,17 @@ Create amqp component config
             'pass' => 'guest',
             'vhost' => '/',
         ],
+        
+        'exchanges' => [
+            'exchange' => [
+                'type' => 'topic',
+                'options' => ['durable' => true],
+            ],
+            'alternative' => [
+                'type' => 'fanout',
+                'options' => ['autoDelete' => false],
+            ],
+        ],
     ],
 ];
 ```
@@ -36,13 +47,8 @@ Create amqp component config
 Create producer.
 
 ```php
-$producer = new memclutter\amqp\components\Producer([
-    'exchange' => 'exchange-name',
-    'exchangeType' => 'topic',
-    'exchangeOptions' => [
-        'durable' => true,
-    ],
-]);
+// create producer for work with default exchange
+$producer = new memclutter\amqp\components\Producer();
 $message = 'my message';
 $routingKey = 'my.routing.key';
 $producer->publish($message, $routingKey);
@@ -51,18 +57,12 @@ $producer->publish($message, $routingKey);
 Listen messages using consumer component
 
 ```php
-$consumer = new memclutter\amqp\components\Consumer([
-    'exchange' => 'exchange-name',
-    'exchangeType' => 'topic',
-        'exchangeOptions' => [
-            'durable' => true,
-        ],
-    ],
-]);
-$routingKey = 'my.routing.key';
+// consumer for default exchange
+$consumer = new memclutter\amqp\components\Consumer();
 $callback = function($message) {
     echo $message->body;
 };
-$consumer->consume($routingKey, $callback);
+$routingKey = 'my.routing.key';
+$consumer->consume($callback, $routingKey);
 $consumer->wait();
 ```

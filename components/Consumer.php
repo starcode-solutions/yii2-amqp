@@ -7,7 +7,7 @@ namespace memclutter\amqp\components;
  */
 class Consumer extends BaseComponent
 {
-    public function consume($routingKey, $callback)
+    public function consume($callback, $routingKey = '')
     {
         list($queueName, ,) = $this->channel->queue_declare("", false, false, true, false);
         $this->channel->queue_bind($queueName, $this->exchange, $routingKey);

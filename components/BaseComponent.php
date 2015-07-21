@@ -16,7 +16,7 @@ abstract class BaseComponent extends Component
     /** @var Amqp */
     public $amqp;
     public $exchange = 'exchange';
-    public $exchangeType = self::EXCHANGE_TYPE_TOPIC;
+    public $exchangeType;
     public $exchangeOptions = [];
     /** @var AMQPChannel */
     public $channel;
@@ -31,6 +31,18 @@ abstract class BaseComponent extends Component
 
         if ($this->amqp == null) {
             $this->amqp = Yii::$app->get('amqp');
+        }
+
+        if (isset($this->amqp->exchanges[$this->exchange])) {
+            if (empty($this->exchangeType)) {
+                $this->exchangeType = isset($this->amqp->exchanges[$this->exchange]['type'])
+                    ? $this->amqp->exchanges[$this->exchange]['type'] : self::EXCHANGE_TYPE_TOPIC;
+            }
+
+            if (isset($this->amqp->exchanges[$this->exchange]['options'])) {
+                $this->exchangeOptions = ArrayHelper::merge($this->amqp->exchanges[$this->exchange]['options'],
+                    $this->exchangeOptions);
+            }
         }
 
         $exchangeTypes = [
