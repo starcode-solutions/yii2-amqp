@@ -16,7 +16,7 @@ abstract class BaseComponent extends Component
 
     /** @var Amqp */
     public $amqp;
-    public $exchange = 'exchange';
+    public $exchange;
     public $exchangeType;
     public $exchangeOptions = [];
     /** @var AMQPChannel */
@@ -33,6 +33,8 @@ abstract class BaseComponent extends Component
         if ($this->amqp == null) {
             $this->amqp = Yii::$app->get('amqp');
         }
+
+        $this->exchange = $this->amqp->defaultExchange;
 
         if (isset($this->amqp->exchanges[$this->exchange])) {
             if (empty($this->exchangeType)) {

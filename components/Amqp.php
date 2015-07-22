@@ -13,6 +13,7 @@ class Amqp extends Component
     public $pass;
     public $vhost = '/';
     public $exchanges = [];
+    public $defaultExchange = 'exchange';
     protected $_connection;
 
     public function getConnection()
