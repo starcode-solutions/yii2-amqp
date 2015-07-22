@@ -6,6 +6,7 @@ use PhpAmqpLib\Channel\AMQPChannel;
 use Yii;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
+use yii\helpers\ArrayHelper;
 
 abstract class BaseComponent extends Component
 {
