@@ -10,7 +10,7 @@ or add composer.json
 ```json
 {
     "require": {
-        "starcode/yii2-amqp": "*"
+        "starcode/yii2-amqp": "dev-master"
     }
 }
 ```
@@ -39,22 +39,26 @@ Create amqp component config
                 'options' => ['autoDelete' => false],
             ],
         ],
+        
+        'defaultExchange' => 'exchange',
     ],
 ];
 ```
 
 # usage
-Create producer.
+Publish message.
 
 ```php
 // create producer for work with default exchange
 $producer = new starcode\amqp\components\Producer();
 $message = 'my message';
 $routingKey = 'my.routing.key';
+
+// publish message
 $producer->publish($message, $routingKey);
 ```
 
-Listen messages using consumer component
+Listen messages
 
 ```php
 // consumer for default exchange
@@ -63,6 +67,9 @@ $callback = function($message) {
     echo $message->body;
 };
 $routingKey = 'my.routing.key';
+
+// consume message 
 $consumer->consume($callback, $routingKey);
+//$consumer->consume($callbackOther, 'other.route.key');
 $consumer->wait();
 ```
