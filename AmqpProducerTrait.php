@@ -1,8 +1,8 @@
 <?php
 
-namespace memclutter\amqp;
+namespace starcode\amqp;
 
-use memclutter\amqp\components\Producer;
+use starcode\amqp\components\Producer;
 use PhpAmqpLib\Message\AMQPMessage;
 
 trait AmqpProducerTrait

@@ -1,6 +1,6 @@
 <?php
 
-namespace memclutter\amqp\components;
+namespace starcode\amqp\components;
 
 use PhpAmqpLib\Connection\AMQPConnection;
 use yii\base\Component;

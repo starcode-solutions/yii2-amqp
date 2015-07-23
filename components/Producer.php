@@ -1,6 +1,6 @@
 <?php
 
-namespace memclutter\amqp\components;
+namespace starcode\amqp\components;
 
 use PhpAmqpLib\Message\AMQPMessage;
 use yii\helpers\Json;

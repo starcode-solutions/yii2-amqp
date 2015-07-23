@@ -3,14 +3,14 @@ Extension Yii2 for working with AMQP protocol
 # installation
 Via composer
 
-    composer require "memclutter/yii2-amqp"
+    composer require "starcode/yii2-amqp"
     
 or add composer.json
 
 ```json
 {
     "require": {
-        "memclutter/yii2-amqp": "*"
+        "starcode/yii2-amqp": "*"
     }
 }
 ```
@@ -22,7 +22,7 @@ Create amqp component config
 [
     'components' => [
         'amqp' => [
-            'class' => 'memclutter\amqp\components\Amqp',
+            'class' => 'starcode\amqp\components\Amqp',
             'host' => 'localhost',
             'user' => 'guest',
             'pass' => 'guest',
@@ -48,7 +48,7 @@ Create producer.
 
 ```php
 // create producer for work with default exchange
-$producer = new memclutter\amqp\components\Producer();
+$producer = new starcode\amqp\components\Producer();
 $message = 'my message';
 $routingKey = 'my.routing.key';
 $producer->publish($message, $routingKey);
@@ -58,7 +58,7 @@ Listen messages using consumer component
 
 ```php
 // consumer for default exchange
-$consumer = new memclutter\amqp\components\Consumer();
+$consumer = new starcode\amqp\components\Consumer();
 $callback = function($message) {
     echo $message->body;
 };

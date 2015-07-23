@@ -1,5 +1,5 @@
 {
-    "name": "memclutter/yii2-amqp",
+    "name": "starcode-krasnodar/yii2-amqp",
     "description": "AMQP protocol extension for Yii2",
     "type": "yii2-extension",
     "require": {
@@ -14,7 +14,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "memclutter\\amqp\\": ""
+            "starcode\\amqp\\": ""
         }
     }
 }
