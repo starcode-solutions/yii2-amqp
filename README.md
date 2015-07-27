@@ -1,4 +1,7 @@
 # yii2-amqp
+
+[![Latest Stable Version](https://poser.pugx.org/starcode-krasnodar/yii2-amqp/v/stable)](https://packagist.org/packages/starcode-krasnodar/yii2-amqp) [![Total Downloads](https://poser.pugx.org/starcode-krasnodar/yii2-amqp/downloads)](https://packagist.org/packages/starcode-krasnodar/yii2-amqp) [![Latest Unstable Version](https://poser.pugx.org/starcode-krasnodar/yii2-amqp/v/unstable)](https://packagist.org/packages/starcode-krasnodar/yii2-amqp) [![License](https://poser.pugx.org/starcode-krasnodar/yii2-amqp/license)](https://packagist.org/packages/starcode-krasnodar/yii2-amqp)
+
 Extension Yii2 for working with AMQP protocol
 # installation
 Via composer
