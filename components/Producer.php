@@ -10,12 +10,12 @@ use yii\helpers\Json;
  */
 class Producer extends BaseComponent
 {
-    public function publish($message, $routingKey = '')
+    public function publish($message, $routingKey = '', $messageProperties = null)
     {
         if (is_object($message) || is_array($message)) {
             $message = Json::encode($message);
         }
-        $message = new AMQPMessage($message);
+        $message = new AMQPMessage($message, $messageProperties);
         $this->channel->basic_publish($message, $this->exchange, $routingKey);
     }
 }
