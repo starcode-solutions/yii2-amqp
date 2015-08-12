@@ -12,6 +12,7 @@ class Producer extends BaseComponent
 {
     public function publish($message, $routingKey = '', $messageProperties = null)
     {
+        $this->channel->queue_bind($this->queueName, $this->exchange, $routingKey);
         if (is_object($message) || is_array($message)) {
             $message = Json::encode($message);
         }

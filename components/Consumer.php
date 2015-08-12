@@ -11,8 +11,8 @@ class Consumer extends BaseComponent
 {
     public function consume($callback, $routingKey = '', $consumeOptions = [])
     {
-        list($queueName, ,) = $this->channel->queue_declare("", false, false, true, false);
-        $this->channel->queue_bind($queueName, $this->exchange, $routingKey);
+//        list($queueName, ,) = $this->channel->queue_declare("", false, false, true, false);
+        $this->channel->queue_bind($this->queueName, $this->exchange, $routingKey);
         $options = ArrayHelper::merge([
             'consumerTag' => '',
             'noLocal' => false,
@@ -20,7 +20,7 @@ class Consumer extends BaseComponent
             'exclusive' => false,
             'noWait' => false,
         ], $consumeOptions);
-        $this->channel->basic_consume($queueName,
+        $this->channel->basic_consume($this->queueName,
             $options['consumerTag'],
             $options['noLocal'],
             $options['noAck'],

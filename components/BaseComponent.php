@@ -22,6 +22,7 @@ abstract class BaseComponent extends Component
     /** @var AMQPChannel */
     public $channel;
     public $channelId;
+    public $queueName;
 
     /**
      * @inheritdoc
@@ -48,6 +49,10 @@ abstract class BaseComponent extends Component
             }
         }
 
+        if (empty($this->queueName)) {
+            $this->queueName = $this->amqp->defaultQueue;
+        }
+
         $exchangeTypes = [
             self::EXCHANGE_TYPE_DIRECT,
             self::EXCHANGE_TYPE_TOPIC,
@@ -66,5 +71,6 @@ abstract class BaseComponent extends Component
             isset($this->exchangeOptions['passive']) ? $this->exchangeOptions['passive'] : false,
             isset($this->exchangeOptions['durable']) ? $this->exchangeOptions['durable'] : false,
             isset($this->exchangeOptions['autoDelete']) ? $this->exchangeOptions['autoDelete'] : false);
+        $this->channel->queue_declare($this->queueName, false, true, false, false);
     }
 }
