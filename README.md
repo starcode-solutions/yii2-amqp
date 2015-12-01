@@ -6,14 +6,14 @@ Extension Yii2 for working with AMQP protocol
 # installation
 Via composer
 
-    composer require "starcode/yii2-amqp"
+    composer require "starcode/yii2-amqp:2.*"
     
 or add composer.json
 
 ```json
 {
     "require": {
-        "starcode/yii2-amqp": "dev-master"
+        "starcode/yii2-amqp": "2.*"
     }
 }
 ```
@@ -25,25 +25,27 @@ Create amqp component config
 [
     'components' => [
         'amqp' => [
-            'class' => 'starcode\amqp\components\Amqp',
+            'class' => 'starcode\amqp\components\Connection',
             'host' => 'localhost',
             'user' => 'guest',
-            'pass' => 'guest',
-            'vhost' => '/',
-        ],
-        
-        'exchanges' => [
-            'exchange' => [
-                'type' => 'topic',
-                'options' => ['durable' => true],
+            'password' => 'guest',
+            'connectionOptions' => [
+                'vhost' => '/',
             ],
-            'alternative' => [
-                'type' => 'fanout',
-                'options' => ['autoDelete' => false],
+            
+            'queuesConfig' => [
+                'email' => [
+                    'queue' => 'email',
+                    'durable' => true,
+                    'auto_delete' => false,
+                ],
+                'logs' => [
+                    'queue' => 'logs',
+                    'durable' => true,
+                    'auto_delete' => false,
+                ],
             ],
         ],
-        
-        'defaultExchange' => 'exchange',
     ],
 ];
 ```
@@ -52,27 +54,37 @@ Create amqp component config
 Publish message.
 
 ```php
-// create producer for work with default exchange
-$producer = new starcode\amqp\components\Producer();
-$message = 'my message';
-$routingKey = 'my.routing.key';
+// get queue object
+$queue = Yii::$app->get('amqp')->getQueue('email');
+
+// create message object
+$message = new Message('my message', ['delivery_mode' => 2]);
 
 // publish message
-$producer->publish($message, $routingKey);
+$queue->publish($message);
 ```
 
 Listen messages
 
 ```php
-// consumer for default exchange
-$consumer = new starcode\amqp\components\Consumer();
+// get queue object
+$queue = Yii::$app->get('amqp')->getQueue('email');
+
+// callback listener function
 $callback = function($message) {
     echo $message->body;
+    
+    // acknowledge message
+    $channel = $msg->delivery_info['channel'];
+    $channel->basic_ack($msg->delivery_info['delivery_tag']);
 };
-$routingKey = 'my.routing.key';
 
-// consume message 
-$consumer->consume($callback, $routingKey);
-//$consumer->consume($callbackOther, 'other.route.key');
-$consumer->wait();
+$queue->consume([
+    'callback' => $callback,
+]);
+
+$channel = $queue->getChannel();
+while (count($channel->callbacks)) {
+    $channel->wait();
+}
 ```
