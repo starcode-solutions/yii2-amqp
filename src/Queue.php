@@ -8,7 +8,7 @@ class Queue extends Object
 {
     use CommonTrait;
 
-    public $connectionComponentName = 'amqp';
+    public $connectionComponentId = 'amqp';
     public $channelId;
     public $queue = '';
     public $passive = false;
