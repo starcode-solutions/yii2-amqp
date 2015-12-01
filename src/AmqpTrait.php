@@ -5,7 +5,7 @@ namespace starcode\amqp;
 use starcode\amqp\components\Connection;
 use Yii;
 
-class AmqpTrait
+trait AmqpTrait
 {
     public $amqpConnectionComponentId = 'amqp';
 
