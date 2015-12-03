@@ -10,7 +10,7 @@ class Queue extends Object
 
     public $connectionComponentId = 'amqp';
     public $channelId;
-    public $queue = '';
+    public $name = '';
     public $passive = false;
     public $durable = false;
     public $exclusive = false;
@@ -25,7 +25,7 @@ class Queue extends Object
 
         $channel = $this->getChannel();
         $temporaryQueue = $channel->queue_declare(
-            $this->queue,
+            $this->name,
             $this->passive,
             $this->durable,
             $this->exclusive,
@@ -34,8 +34,8 @@ class Queue extends Object
             $this->arguments,
             $this->ticket
         );
-        if (empty($this->queue)) {
-            $this->queue = $temporaryQueue;
+        if (empty($this->name)) {
+            $this->name = $temporaryQueue;
         }
     }
 
@@ -54,7 +54,7 @@ class Queue extends Object
 
         $defaultOptions = [
             'exchange' => '',
-            'routing_key' => $this->queue,
+            'routing_key' => $this->name,
             'mandatory' => false,
             'immediate' => false,
             'ticket' => null,
@@ -85,7 +85,7 @@ class Queue extends Object
         }
 
         $defaultOptions = [
-            'queue' => $this->queue,
+            'queue' => $this->name,
             'consumer_tag' => '',
             'no_local' => false,
             'no_ack' => false,
