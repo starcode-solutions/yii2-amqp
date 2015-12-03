@@ -24,7 +24,7 @@ class Queue extends Object
         parent::init();
 
         $channel = $this->getChannel();
-        $temporaryQueue = $channel->queue_declare(
+        list($temporaryQueue, , ) = $channel->queue_declare(
             $this->name,
             $this->passive,
             $this->durable,
