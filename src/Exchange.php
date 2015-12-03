@@ -58,7 +58,7 @@ class Exchange extends Object
     /**
      * Create new queue and bind it to exchange
      * @param string $name
-     * @param array $bindOptions
+     * @param array $bindOptions Options passed to queue_bind()
      * @return Queue
      */
     public function getQueue(string $name = '', array $bindOptions = [])
@@ -71,7 +71,7 @@ class Exchange extends Object
     /**
      * Bind queue to exchange
      * @param Queue $queue
-     * @param array $bindOptions
+     * @param array $bindOptions Options passed to queue_bind()
      * @return mixed|null
      */
     public function bind(Queue $queue, array $bindOptions = [])
