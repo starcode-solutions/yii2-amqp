@@ -56,6 +56,29 @@ class Exchange extends Object
     }
 
     /**
+     * Publish message to exchange
+     * @param Message $message
+     * @param $options
+     */
+    public function publish(Message $message, array $options = [])
+    {
+        $defaultOptions = [
+            'routing_key' => '',
+            'mandatory' => false,
+            'immediate' => false,
+            'ticket' => null
+        ];
+        $options = array_merge($defaultOptions, $options);
+        return $this->getChannel()->basic_publish(
+            $message,
+            $this->name,
+            $options['routing_key'],
+            $options['mandatory'],
+            $options['immediate'],
+            $options['ticket']);
+    }
+
+    /**
      * Create new queue and bind it to exchange
      * @param string $name
      * @param array $bindOptions Options passed to queue_bind()
