@@ -119,4 +119,12 @@ class Connection extends Component
 
         return $this->_queues[$id];
     }
+
+    public function wait($allowed_methods = null, $non_blocking = false, $timeout = 0)
+    {
+        $channel = $this->getAmqpChannel();
+        while (count($channel->callbacks)) {
+            $channel->wait($allowed_methods, $non_blocking, $timeout);
+        }
+    }
 }
