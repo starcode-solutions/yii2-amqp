@@ -85,13 +85,13 @@ class Exchange extends Object
 
     /**
      * Create new queue and bind it to exchange
-     * @param string $name
+     * @param array $queueOptions Options passed to queue_declare()
      * @param array $bindOptions Options passed to queue_bind()
      * @return Queue
      */
-    public function getQueue($name = '', array $bindOptions = [])
+    public function getQueue(array $queueOptions = [], array $bindOptions = [])
     {
-        $queue = new Queue(['name' => $name]);
+        $queue = new Queue($queueOptions);
         $this->bind($queue, $bindOptions);
         return $queue;
     }
