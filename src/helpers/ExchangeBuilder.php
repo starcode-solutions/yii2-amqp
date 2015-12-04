@@ -66,7 +66,7 @@ class ExchangeBuilder
     }
 
     /**
-     * @param $type
+     * @param string $type Exchange type (direct, topic, headers, fanout)
      * @return $this
      */
     public function type($type)
