@@ -56,7 +56,7 @@ class ExchangeBuilder
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return $this
      */
     public function name($name)
