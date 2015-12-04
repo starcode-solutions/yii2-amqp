@@ -20,6 +20,18 @@ trait AmqpTrait
     }
 
     /**
+     * Exchange getter
+     * @param $id
+     * @return Exchange
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function amqpGetExchange($id)
+    {
+        return $this->amqpGetConnection()
+            ->getExchange($id);
+    }
+
+    /**
      * @return null|Connection
      * @throws \yii\base\InvalidConfigException
      */
