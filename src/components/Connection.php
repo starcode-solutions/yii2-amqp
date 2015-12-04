@@ -4,6 +4,7 @@ namespace starcode\amqp\components;
 
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
+use starcode\amqp\Exchange;
 use starcode\amqp\Queue;
 use Yii;
 use yii\base\Component;
@@ -17,6 +18,7 @@ class Connection extends Component
     public $password;
     public $connectionOptions = [];
     public $queuesConfig = [];
+    public $exchangesConfig = [];
 
     /**
      * @var AMQPStreamConnection
@@ -37,6 +39,11 @@ class Connection extends Component
      * @var Queue[]
      */
     private $_queues = [];
+
+    /**
+     * @var Exchange[]
+     */
+    private $_exchanges = [];
 
     public function init()
     {
@@ -118,6 +125,30 @@ class Connection extends Component
         }
 
         return $this->_queues[$id];
+    }
+
+    /**
+     * Get configured exchange by id.
+     *
+     * @param $id
+     * @return Exchange
+     * @throws InvalidConfigException
+     */
+    public function getExchange($id)
+    {
+        if (!isset($this->_exchanges[$id]) || !($this->_exchanges[$id] instanceof Exchange)) {
+            if (!isset($this->exchangesConfig[$id])) {
+                throw new InvalidConfigException("AMQP exchange {$id} not configured.");
+            }
+
+            $config = $this->exchangesConfig[$id];
+            if (!isset($config['class'])) {
+                $config['class'] = Exchange::className();
+            }
+            $this->_exchanges[$id] = Yii::createObject($config);
+        }
+
+        return $this->_exchanges[$id];
     }
 
     public function wait($allowed_methods = null, $non_blocking = false, $timeout = 0)
