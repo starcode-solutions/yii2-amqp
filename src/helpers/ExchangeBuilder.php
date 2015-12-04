@@ -1,6 +1,8 @@
 <?php
 
-namespace starcode\amqp;
+namespace starcode\amqp\helpers;
+
+use starcode\amqp\Exchange;
 
 class ExchangeBuilder
 {
