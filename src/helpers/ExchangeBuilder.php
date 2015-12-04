@@ -12,7 +12,7 @@ class ExchangeBuilder
      * @param array $options
      * @return static
      */
-    public function config($options = [])
+    public static function config($options = [])
     {
         $builder = new static();
         $builder->options = $options;

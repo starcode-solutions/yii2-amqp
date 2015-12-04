@@ -14,7 +14,7 @@ class MessageBuilder
      * @param array $options
      * @return static
      */
-    public function config($body = '', $options = [])
+    public static function config($body = '', $options = [])
     {
         $builder = new static();
         $builder->body = $body;
