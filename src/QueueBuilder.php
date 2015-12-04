@@ -7,11 +7,14 @@ class QueueBuilder
     protected $options = [];
 
     /**
+     * @param array $options
      * @return static
      */
-    public static function config()
+    public static function config($options = [])
     {
-        return new static();
+        $builder = new static();
+        $builder->options = $options;
+        return $builder;
     }
 
     /**
