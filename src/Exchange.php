@@ -15,6 +15,11 @@ class Exchange extends Object
 {
     use CommonTrait;
 
+    const TYPE_TOPIC = 'topic';
+    const TYPE_DIRECT = 'direct';
+    const TYPE_HEADERS = 'headers';
+    const TYPE_FANOUT = 'fanout';
+
     public $connectionComponentId = 'amqp';
     public $channelId;
     /** @var  mixed|null */
@@ -69,7 +74,7 @@ class Exchange extends Object
             'ticket' => null
         ];
         $options = array_merge($defaultOptions, $options);
-        return $this->getChannel()->basic_publish(
+        $this->getChannel()->basic_publish(
             $message,
             $this->name,
             $options['routing_key'],
