@@ -9,6 +9,7 @@
 namespace starcode\amqp;
 
 
+use starcode\amqp\helpers\QueueBuilder;
 use yii\base\Object;
 
 class Exchange extends Object
@@ -85,13 +86,13 @@ class Exchange extends Object
 
     /**
      * Create new queue and bind it to exchange
-     * @param array $queueOptions Options passed to queue_declare()
+     * @param array|QueueBuilder $queueOptions Options passed to queue_declare()
      * @param array $bindOptions Options passed to queue_bind()
      * @return Queue
      */
-    public function getQueue(array $queueOptions = [], array $bindOptions = [])
+    public function getQueue($queueOptions = [], array $bindOptions = [])
     {
-        $queue = new Queue($queueOptions);
+        $queue = ($queueOptions instanceof QueueBuilder) ? $queueOptions->build() : new Queue($queueOptions);
         $this->bind($queue, $bindOptions);
         return $queue;
     }
