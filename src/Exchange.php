@@ -9,6 +9,7 @@
 namespace starcode\amqp;
 
 
+use starcode\amqp\helpers\BindConfigBuilder;
 use starcode\amqp\helpers\QueueBuilder;
 use yii\base\Object;
 
@@ -87,10 +88,10 @@ class Exchange extends Object
     /**
      * Create new queue and bind it to exchange
      * @param array|QueueBuilder $queueOptions Options passed to queue_declare()
-     * @param array $bindOptions Options passed to queue_bind()
+     * @param array|BindConfigBuilder $bindOptions Options passed to queue_bind()
      * @return Queue
      */
-    public function getQueue($queueOptions = [], array $bindOptions = [])
+    public function getQueue($queueOptions = [], $bindOptions = [])
     {
         $queue = ($queueOptions instanceof QueueBuilder) ? $queueOptions->build() : new Queue($queueOptions);
         $this->bind($queue, $bindOptions);
@@ -100,10 +101,10 @@ class Exchange extends Object
     /**
      * Bind queue to exchange
      * @param Queue $queue
-     * @param array $bindOptions Options passed to queue_bind()
+     * @param array|BindConfigBuilder $bindOptions Options passed to queue_bind()
      * @return mixed|null
      */
-    public function bind(Queue $queue, array $bindOptions = [])
+    public function bind(Queue $queue, $bindOptions = [])
     {
         $defaultOptions = [
             'routing_key' => '',
@@ -111,8 +112,15 @@ class Exchange extends Object
             'arguments'   => null,
             'ticket'      => null
         ];
+        $bindOptions = ($bindOptions instanceof BindConfigBuilder) ? $bindOptions->getOptions() : $bindOptions;
         $options = array_merge($defaultOptions, $bindOptions);
 
-        return $this->getChannel()->queue_bind($queue->name, $this->name, $options['routing_key'], $options['nowait'], $options['arguments'], $options['ticket']);
+        return $this->getChannel()->queue_bind(
+            $queue->name,
+            $this->name,
+            $options['routing_key'],
+            $options['nowait'],
+            $options['arguments'],
+            $options['ticket']);
     }
 }
