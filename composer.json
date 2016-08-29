@@ -4,7 +4,7 @@
     "type": "yii2-extension",
     "require": {
         "yiisoft/yii2": "*",
-        "videlalvaro/php-amqplib": "2.5.*"
+        "php-amqplib/php-amqplib": "2.5.*"
     },
     "authors": [
         {
