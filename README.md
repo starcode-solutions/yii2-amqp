@@ -88,3 +88,17 @@ while (count($channel->callbacks)) {
     $channel->wait();
 }
 ```
+
+# tests
+After composer install all binaries of this project will be linked into a bin folder.
+
+For calling unit tests simply run:
+```shell
+    bin/phpunit
+```
+
+For generating html based code coverage in build folder, run:
+```shell
+    bin/phpunit --coverage-html=build
+```
+

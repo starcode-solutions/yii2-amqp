@@ -3,8 +3,15 @@
     "description": "AMQP protocol extension for Yii2",
     "type": "yii2-extension",
     "require": {
+        "php": ">=5.4.0",
         "yiisoft/yii2": "*",
         "php-amqplib/php-amqplib": "2.5.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.6"
+    },
+    "config": {
+        "bin-dir": "bin"
     },
     "authors": [
         {
@@ -14,7 +21,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "starcode\\amqp\\": "src/"
+            "starcode\\amqp\\": "src/",
+            "starcode\\amqp\\tests\\": "tests/"
         }
     }
 }
