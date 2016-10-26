@@ -97,3 +97,8 @@ For calling unit tests simply run:
     bin/phpunit
 ```
 
+For generating html based code coverage in build folder, run:
+```shell
+    bin/phpunit --coverage-html=build
+```
+
