@@ -3,6 +3,7 @@
     "description": "AMQP protocol extension for Yii2",
     "type": "yii2-extension",
     "require": {
+        "php": ">=5.4.0",
         "yiisoft/yii2": "*",
         "php-amqplib/php-amqplib": "2.5.*"
     },
